@@ -1,6 +1,6 @@
-"""Market Buah
+"""Fruit Market
 By Shafanda Nabil Sembodo shafanda.nabil.s@gmail.com
 
-Aplikasi untuk pembelian buah"""
+Application to record transactions in a fruit market"""
 
 __version__ = "0.1.0"
