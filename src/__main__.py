@@ -60,7 +60,6 @@ if __name__ == "__main__":
         headings = next(reader)
         db = {"column": headings}
         # Input row into dictionary
-        i = 0
         for row in reader:
             db.update(
                 {
@@ -72,7 +71,6 @@ if __name__ == "__main__":
                     ]
                 }
             )
-            i += 1
         # Close the database file
         file.close()
         # Run main program

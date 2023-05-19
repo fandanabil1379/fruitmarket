@@ -1,23 +1,20 @@
+import tabulate
 import pyinputplus as pypi
 
-# Mengatur kerangka tampilan data di prompt 
-formats = "{:<4}" + "{:<10}" * 4
 
-
-def show(database, printFormat=formats, title="\nDaftar Buah yang Tersedia\n"):
+def show(database, title="\nDaftar Buah yang Tersedia\n"):
     """Fungsi untuk menampilkan database ke prompt
 
     Args:
         database (dictionary): database yang akan ditampilkan
-        printFormat (string): format tampilan di prompt
         title (str, optional): judul tampilan. Defaults "\nDaftar Buah yang Tersedia\n".
     """
     # Menampilkan judul
     print(title)
-    # Loop item di dalam listFruit
-    for value in database.values():
-        # Menampilkan item berdasarkan format
-        print(printFormat.format("", *value))
+    # Print data ke prompt dalam bentuk tabulasi
+    data = list(database.values())[1:]
+    header = database['column']
+    print(tabulate.tabulate(data, header, tablefmt="outline"))
     print("\n")
 
 
@@ -54,7 +51,7 @@ def add(database):
             {f"{nameFruit}": [len(database) - 1, nameFruit, countFruit, priceFruit]}
         )
     # Menampilkan daftar item terbaru
-    show(database, formats)
+    show(database)
     return database
 
 
@@ -81,7 +78,7 @@ def delete(database):
         elif id < value[0]: 
             database.update({f"{key}": [value[0] - 1, value[1], value[2], value[3]]})
     # Menampilkan daftar item terbaru
-    show(database, formats)
+    show(database)
     return database
 
 
@@ -100,7 +97,7 @@ def buy(database):
     }
     while True:
         # Menampilkan data buah terbaru
-        show(database, formats)
+        show(database)
         # Input indeks item yang akan dibeli
         # Validasi dengan indeks item yang tersedia
         id = pypi.inputInt(prompt="Input indeks item: ", lessThan=len(database) - 1)
@@ -119,8 +116,7 @@ def buy(database):
         # Kurangi persedian stock di database
         database[name][2] -= countFruit
         # Tampilkan isi keranjang belanjaan
-        chartFormat = "{:<4}" + "{:<10}" * (len(chart["column"]))
-        show(chart, chartFormat, title="\nIsi Keranjang Anda\n")
+        show(chart, title="\nIsi Keranjang Anda\n")
         # Konfirmasi status re-order
         reorder = pypi.inputYesNo(prompt="Beli item lain?(yes/no): ")
         if reorder.lower() == "no":
@@ -140,7 +136,7 @@ def buy(database):
     # Proses pembayaran
     while True:
         # Menampilkan daftar belanja
-        show(chart, formats, title="\nDaftar Belanjaan Anda\n")
+        show(chart, title="\nDaftar Belanjaan Anda\n")
         # Hitung total harga yang harus dibayar
         price = 0
         for value in list(chart.values())[1:]:
