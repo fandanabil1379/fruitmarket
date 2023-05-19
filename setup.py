@@ -17,12 +17,12 @@ with io.open("README.md", encoding="utf-8") as fileObj:
     long_description = fileObj.read()
 
 setup(
-    name="Market Buah",
+    name="Fruit Market",
     version=version,
     url="https://github.com/fandanabil1379/fruitmarket",
     author="Shafanda Nabil Sembodo",
     author_email="shafanda.nabil.s@gmail.com",
-    description=("""Aplikasi pembelian item"""),
+    description=("""Fruit Market Application"""),
     long_description=long_description,
     long_description_content_type="text/markdown",
     license="MIT",
