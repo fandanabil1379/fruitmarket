@@ -78,7 +78,7 @@ def delete(database):
         if id in value:
             del database[key]
         # Selain itu, update indeks item yang tersisa
-        else:
+        elif id < value[0]: 
             database.update({f"{key}": [value[0] - 1, value[1], value[2], value[3]]})
     # Menampilkan daftar item terbaru
     show(database, formats)
